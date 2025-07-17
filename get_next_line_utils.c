@@ -1,21 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: esakgul <esakgul@student.42istanbul.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 16:44:29 by fuyar             #+#    #+#             */
-/*   Updated: 2025/07/15 17:21:56 by esakgul          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
 
-size_t	ft_strlen_gnl(char *str)
+size_t ft_strlen(char *str)
 {
-	size_t	i;
-
+	size_t i;
+	
 	i = 0;
 	if (!str)
 		return (i);
@@ -24,64 +12,45 @@ size_t	ft_strlen_gnl(char *str)
 	return (i);
 }
 
-char	*ft_strchr_gnl(char *str, char c)
+char *ft_strchr(char *s1, char c)
 {
-	size_t	i;
+	size_t i;
+	size_t len;
 
+	len = ft_strlen(s1);
 	i = 0;
-	if (!str)
+	if (!s1)
 		return (NULL);
-	while (str[i])
+	while (i < len)
 	{
-		if (str[i] == c)
-			return (str + i);
+		if (s1[i] == c)
+			return (s1 + i);
 		i++;
 	}
 	return (NULL);
 }
 
-char	*ft_strjoin_gnl(char *s1, char *s2)
+char *ft_strjoin(char *s1, char *s2)
 {
-	size_t	i;
-	size_t	j;
-	char	*ret;
+	size_t i;
+	size_t j;
+	char *ret;
 
-	ret = malloc(sizeof(char) * (ft_strlen_gnl(s1) + ft_strlen_gnl(s2) + 1));
+	if (!s1)
+	{
+		s1 = malloc(1);
+		s1[0] = '\0';
+	}
+	ret = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!ret)
-		return (free(s1), NULL);
-	i = 0;
-	while (s1[i])
-	{
+		return (NULL);
+	i = -1;
+	while (s1[++i])
 		ret[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2[j])
-	{
+	j = -1;
+	while (s2[++j])
 		ret[i + j] = s2[j];
-		j++;
-	}
 	ret[i + j] = '\0';
 	free(s1);
 	return (ret);
-}
-#include <stdio.h>
-#include <fcntl.h>
-
-int main()
-{
-    int fd = open("a.txt", O_RDONLY);
-    char *str = get_next_line(fd);
-    printf("%s\n",str);
-    str = get_next_line(fd);
-    printf("%s\n",str);
-    str = get_next_line(fd);
-    printf("%s\n",str);
-    str = get_next_line(fd);
-    printf("%s\n",str);
-    str = get_next_line(fd);
-    printf("%s\n",str);
-    str = get_next_line(fd);
-    printf("%s\n",str);
-    str = get_next_line(fd);
 }
