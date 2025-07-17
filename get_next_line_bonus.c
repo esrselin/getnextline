@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: esakgul <esakgul@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/17 20:02:15 by esakgul           #+#    #+#             */
-/*   Updated: 2025/07/17 20:13:40 by esakgul          ###   ########.fr       */
+/*   Created: 2025/07/17 20:02:40 by esakgul           #+#    #+#             */
+/*   Updated: 2025/07/17 20:14:45 by esakgul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*read_line(int fd, char *line)
 {
@@ -95,15 +95,15 @@ static char	*clean_line(char *line)
 
 char	*get_next_line(int fd)
 {
-	static char	*line;
+	static char	*line[4096];
 	char		*tmp_line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	line = read_line(fd, line);
-	if (!line)
+	line[fd] = read_line(fd, line[fd]);
+	if (!line[fd])
 		return (NULL);
-	tmp_line = set_line(line);
-	line = clean_line(line);
+	tmp_line = set_line(line[fd]);
+	line[fd] = clean_line(line[fd]);
 	return (tmp_line);
 }

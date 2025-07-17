@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: esakgul <esakgul@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/17 20:02:31 by esakgul           #+#    #+#             */
-/*   Updated: 2025/07/17 20:08:12 by esakgul          ###   ########.fr       */
+/*   Created: 2025/07/17 20:02:34 by esakgul           #+#    #+#             */
+/*   Updated: 2025/07/17 20:09:02 by esakgul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -37,11 +37,15 @@ char	*ft_strchr(const char *s, int c)
 
 char	*ft_strjoin(char *s1, char *s2)
 {
+	size_t	len1;
+	size_t	len2;
 	char	*joined;
 	size_t	i;
 	size_t	j;
 
-	joined = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	joined = malloc(len1 + len2 + 1);
 	if (!joined)
 		return (NULL);
 	i = 0;
@@ -52,11 +56,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	}
 	j = 0;
 	while (s2 && s2[j])
-	{
-		joined[i] = s2[j];
-		i++;
-		j++;
-	}
+		joined[i++] = s2[j++];
 	joined[i] = '\0';
 	return (joined);
 }
